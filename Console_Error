@@ -1,0 +1,26 @@
+InvalidCastException: Specified cast is not valid. 
+Photon.Pun.PhotonRigidbodyView.OnPhotonSerializeView 
+(Photon.Pun.PhotonStream stream, Photon.Pun.PhotonMessageInfo info) 
+(at Assets/Photon/PhotonUnityNetworking/Code/Views/PhotonRigidbodyView.cs:76) 
+Photon.Pun.PhotonView.DeserializeComponent (UnityEngine.Component component, 
+Photon.Pun.PhotonStream stream, Photon.Pun.PhotonMessageInfo info) 
+(at Assets/Photon/PhotonUnityNetworking/Code/PhotonView.cs:638) 
+Photon.Pun.PhotonView.DeserializeView (Photon.Pun.PhotonStream stream, 
+Photon.Pun.PhotonMessageInfo info) 
+(at Assets/Photon/PhotonUnityNetworking/Code/PhotonView.cs:628) 
+Photon.Pun.PhotonNetwork.OnSerializeRead 
+(System.Object[] data, Photon.Realtime.Player sender, System.Int32 networkTime, System.Int16 correctPrefix) 
+(at Assets/Photon/PhotonUnityNetworking/Code/PhotonNetworkPart.cs:1819) 
+Photon.Pun.PhotonNetwork.OnEvent (ExitGames.Client.Photon.EventData photonEvent) 
+(at Assets/Photon/PhotonUnityNetworking/Code/PhotonNetworkPart.cs:2190) 
+Photon.Realtime.LoadBalancingClient.OnEvent (ExitGames.Client.Photon.EventData photonEvent) 
+(at Assets/Photon/PhotonRealtime/Code/LoadBalancingClient.cs:3142) 
+ExitGames.Client.Photon.PeerBase.DeserializeMessageAndCallback (ExitGames.Client.Photon.StreamBuffer stream) 
+(at D:/Dev/Work/photon-dotnet-sdk/PhotonDotNet/PeerBase.cs:659) 
+ExitGames.Client.Photon.EnetPeer.DispatchIncomingCommands () 
+(at D:/Dev/Work/photon-dotnet-sdk/PhotonDotNet/EnetPeer.cs:575) 
+ExitGames.Client.Photon.PhotonPeer.DispatchIncomingCommands () 
+(at D:/Dev/Work/photon-dotnet-sdk/PhotonDotNet/PhotonPeer.cs:1829) 
+Photon.Pun.PhotonHandler.Dispatch () 
+(at Assets/Photon/PhotonUnityNetworking/Code/PhotonHandler.cs:208) 
+Photon.Pun.PhotonHandler.FixedUpdate () (at Assets/Photon/PhotonUnityNetworking/Code/PhotonHandler.cs:142)
