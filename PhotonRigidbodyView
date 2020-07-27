@@ -1,0 +1,61 @@
+public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            if (stream.IsWriting)
+            {
+                stream.SendNext(this.m_Body.position);
+                stream.SendNext(this.m_Body.rotation);
+
+                if (this.m_SynchronizeVelocity)
+                {
+                    stream.SendNext(this.m_Body.velocity);
+                }
+
+                if (this.m_SynchronizeAngularVelocity)
+                {
+                    stream.SendNext(this.m_Body.angularVelocity);
+                }
+            }
+            else if (stream.IsReading)
+            {
+                try
+                {
+                    this.m_NetworkRotation = (Quaternion)stream.ReceiveNext();
+                    this.m_NetworkPosition = (Vector3)stream.ReceiveNext();
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e, this);
+                }
+                
+                if (this.m_TeleportEnabled)
+                {
+                    if (Vector3.Distance(this.m_Body.position, this.m_NetworkPosition) > this.m_TeleportIfDistanceGreaterThan)
+                    {
+                        this.m_Body.position = this.m_NetworkPosition;
+                    }
+                }
+
+                if (this.m_SynchronizeVelocity || this.m_SynchronizeAngularVelocity)
+                {
+                    float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.SentServerTime));
+
+                    if (this.m_SynchronizeVelocity)
+                    {
+                        this.m_Body.velocity = (Vector3)stream.ReceiveNext();
+
+                        this.m_NetworkPosition += this.m_Body.velocity * lag;
+
+                        this.m_Distance = Vector3.Distance(this.m_Body.position, this.m_NetworkPosition);
+                    }
+
+                    if (this.m_SynchronizeAngularVelocity)
+                    {
+                        this.m_Body.angularVelocity = (Vector3)stream.ReceiveNext();
+
+                        this.m_NetworkRotation = Quaternion.Euler(this.m_Body.angularVelocity * lag) * this.m_NetworkRotation;
+
+                        this.m_Angle = Quaternion.Angle(this.m_Body.rotation, this.m_NetworkRotation);
+                    }
+                }
+            }
+        }
